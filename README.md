@@ -1,4 +1,4 @@
-# request-query-monitor
+# Request Query Monitor
 
 Request Query Monitor for Laravel
 
