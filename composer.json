@@ -1,0 +1,32 @@
+{
+    "name": "mpernia/request-query-monitor",
+    "description": "Laravel monitoring package for queries and API requests",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["laravel", "monitoring", "package"],
+    "authors": [
+        {
+            "name": "Maikel Enrique Pernia Matos",
+            "email": "mperniamatos@gmail.com"
+        }
+    ],
+    "homepage": "https://github.com/mpernia/request-query-monitor",
+    "autoload": {
+        "psr-4": {
+            "RequestQueryMonitor\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "illuminate/support": "^9.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "RequestQueryMonitor\\Providers\\MonitoringServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
