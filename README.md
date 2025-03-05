@@ -9,7 +9,7 @@ Request Query Monitor for Laravel
 Install via Composer:
 
 ```bash
-composer require tu-vendor/request-query-monitor
+composer require mpernia/request-query-monitor
 ```
 
 ## Configuration
