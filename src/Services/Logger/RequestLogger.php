@@ -2,7 +2,7 @@
 
 namespace RequestQueryMonitor\Services\Logger;
 
-use Illuminate\Http\{JsonResponse, Request, Response};
+use Illuminate\Http\{Request, Response, JsonResponse, RedirectResponse};
 use InvalidArgumentException;
 
 final class RequestLogger extends Logger
@@ -24,7 +24,7 @@ final class RequestLogger extends Logger
         );
     }
 
-    public function log(Request $request, Response|JsonResponse $response, float $duration): void
+    public function log(Request $request, Response|JsonResponse|RedirectResponse $response, float $duration): void
     {
         $this->getLevel($duration);
         $responseSize = strlen($response->getContent());
@@ -38,7 +38,8 @@ final class RequestLogger extends Logger
             'user_agent' => $request->userAgent(),
             'payload' => $this->sanitizePayload($request),
         ];
-        $this->saveLog($context);
+        $message = $request->expectsJson() ? 'API Request' : 'WEB Request';
+        $this->saveLog($message, $context);
     }
 
     private function sanitizePayload(Request $request): array
@@ -53,8 +54,9 @@ final class RequestLogger extends Logger
         if (count($params) === 0) {
             throw new InvalidArgumentException('Invalid log parameters, must not be empty.');
         }
-        $context = is_array($params[0]) ? $params[0] : [$params[0]];
-        $this->writeLog(message: 'API Request', context: $context);
+        $message = (string) $params[0];
+        $context = is_array($params[1]) ? $params[1] : [$params[1]];
+        $this->writeLog(message: $message, context: $context);
     }
 
     protected function getDirectory(): string

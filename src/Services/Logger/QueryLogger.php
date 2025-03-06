@@ -101,7 +101,7 @@ final class QueryLogger extends Logger
         if (!is_string($params[0])){
             throw new InvalidArgumentException('Invalid log parameters, the first input parameter must be a string');
         }
-        $message = $params[0];
+        $message = (string) $params[0];
         $context = is_array($params[1]) ? $params[1] : [$params[1]];
         $this->writeLog(message: $message, context: $context);
     }

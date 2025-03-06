@@ -3,7 +3,7 @@
 namespace RequestQueryMonitor\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\{JsonResponse, Request, Response};
+use Illuminate\Http\{Request, Response, JsonResponse, RedirectResponse};
 use RequestQueryMonitor\Services\Logger\RequestLogger;
 
 final class ApiRequestLogger
@@ -16,10 +16,10 @@ final class ApiRequestLogger
         $this->requestLogger = $requestLogger;
     }
 
-    public function handle(Request $request, Closure $next): Response|JsonResponse
+    public function handle(Request $request, Closure $next): Response|JsonResponse|RedirectResponse
     {
         $startTime = microtime(true);
-        /** @var Response|JsonResponse $response */
+        /** @var Response|JsonResponse|JsonResponse $response */
         $response = $next($request);
         $endTime = microtime(true);
         $duration = ($endTime - $startTime) * self::MILLISECONDS;
