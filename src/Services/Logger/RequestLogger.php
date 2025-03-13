@@ -38,7 +38,7 @@ final class RequestLogger extends Logger
             'user_agent' => $request->userAgent(),
             'payload' => $this->sanitizePayload($request),
         ];
-        $message = $request->expectsJson() ? 'API Request' : 'WEB Request';
+        $message = ($request->expectsJson() || $request->is('api/*')) ? 'API Request' : 'WEB Request';
         $this->saveLog($message, $context);
     }
 
